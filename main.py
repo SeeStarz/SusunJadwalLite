@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from itertools import combinations
 
 # NOTE: change to appropriate html file path (download from SIAKNG)
-FILE_NAME = "jadwal_new.html"
+FILE_NAME = "jadwal.html"
 with open(FILE_NAME, "r", encoding="ASCII", errors="ignore") as file:
     content = file.read()
 
