@@ -2,16 +2,16 @@ from typing import Self
 from bs4 import BeautifulSoup
 from itertools import combinations, chain
 
-# NOTE: change to appropriate html file path (download from SIAKNG)
+# TODO: change to appropriate html file path (download from SIAKNG)
 FILE_NAME = "jadwal.html"
 with open(FILE_NAME, "r", encoding="ASCII", errors="ignore") as file:
     content = file.read()
 
-# NOTE: fill this with classes you want to check for conflicts
+# TODO: fill this with classes you want to check for conflicts
 WANTED = ("Alin", "DDP 2", "POK", "Kalkulus 2", "MPK Terintegrasi")
 
-# NOTE: fill this to ensure classes you took has no conflict
-# This can also be empty
+# TODO: fill this to ensure classes you took has no conflict
+# This can also be empty if you are not sure which classes to take
 TAKEN_CLASSES_DICT = {
     "MPK Terintegrasi": "F",
     "Alin": "A",
