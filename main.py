@@ -1,6 +1,6 @@
 from typing import Self
 from bs4 import BeautifulSoup
-from itertools import combinations
+from itertools import combinations, chain
 
 # NOTE: change to appropriate html file path (download from SIAKNG)
 FILE_NAME = "jadwal.html"
@@ -82,22 +82,17 @@ class Class:
 
 def main():
     soup = BeautifulSoup(content, "html.parser")
-    siak_classes = (
-        soup.body.contents[-2]
-        .contents[3]
-        .contents[1]
-        .contents[1]
-        .contents[5]
-        .contents[1]
-        .contents[13]
-        .contents[1]
-        .contents[1]
-        .contents[1]
-        .contents[1]
-        .contents[1]
-        .contents[1]
-        .contents[11]
-        .contents[1]
+
+    def get_mk_location(tag):
+        try:
+            if tag.contents[0] == "Kode MK - ":
+                return True
+            return False
+        except:
+            return False
+
+    siak_classes = chain(
+        *[section.parent.parent for section in soup.find_all(get_mk_location)]
     )
 
     classes = []
