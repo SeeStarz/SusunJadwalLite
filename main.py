@@ -8,16 +8,20 @@ with open(FILE_NAME, "r", encoding="ASCII", errors="ignore") as file:
     content = file.read()
 
 # TODO: fill this with classes you want to check for conflicts
-WANTED = ("Alin", "DDP 2", "POK", "Kalkulus 2", "MPK Terintegrasi")
+# Doesn't need to have the full name (I hope)
+WANTED = ("Alin", "DDP 2", "POK", "Kalkulus 2", "MPK Terintegrasi", "MD 2")
 
 # TODO: fill this to ensure classes you took has no conflict
 # This can also be empty if you are not sure which classes to take
+# Right side should be "-" if it is the only class available
+# Must be a subset of WANTED
 TAKEN_CLASSES_DICT = {
     "MPK Terintegrasi": "F",
-    "Alin": "A",
+    "Alin": "B",
     "POK": "B",
-    "DDP 2": "E",
-    "Kalkulus 2": "A",
+    "DDP 2": "B",
+    "Kalkulus 2": "B",
+    "MD 2": "A",
 }
 
 
@@ -119,7 +123,20 @@ def main():
         except:
             continue
 
-        if not any([class_name[:-2] == wanted_class for wanted_class in WANTED]):
+        words = class_name.replace("-", " ").split(" ")
+        index, identifier = next(
+            (
+                (i, word)
+                for i, word in enumerate(words)
+                if len(word) == 1 and word.isalpha()
+            ),
+            (None, "-"),
+        )
+        if index is not None:
+            words.pop(index)
+        class_name = " ".join(words)
+
+        if not any([wanted_class in class_name for wanted_class in WANTED]):
             continue
 
         schedule = [
@@ -128,7 +145,7 @@ def main():
             if isinstance(single_schedule, str)
         ]
 
-        classes.append(Class(class_name[:-2], class_name[-1], schedule))
+        classes.append(Class(class_name, identifier, schedule))
 
     # Lists all conflicting classes
     print("LISTING ALL CONFLICTING CLASSES")
@@ -155,9 +172,16 @@ def main():
     taken_classes = []
     for class_ in classes:
         try:
-            if TAKEN_CLASSES_DICT[class_.category] == class_.identifier:
+            key = next(
+                (
+                    taken_class
+                    for taken_class in TAKEN_CLASSES_DICT.keys()
+                    if taken_class in class_.category
+                )
+            )
+            if TAKEN_CLASSES_DICT[key] == class_.identifier:
                 taken_classes.append(class_)
-        except KeyError:
+        except (KeyError, StopIteration):
             continue
 
     print(f"Taken classes dict: {TAKEN_CLASSES_DICT}")
