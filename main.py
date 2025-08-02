@@ -1,3 +1,5 @@
+#!/bin/python3
+
 from typing import Self
 from bs4 import BeautifulSoup
 from itertools import combinations, chain
