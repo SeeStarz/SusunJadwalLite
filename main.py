@@ -141,7 +141,7 @@ def main():
             words.pop(index)
         class_name = " ".join(words)
 
-        if not any([wanted_class in class_name for wanted_class in WANTED]):
+        if not any([wanted_class == class_name for wanted_class in WANTED]):
             continue
 
         schedule = [
