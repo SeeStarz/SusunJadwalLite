@@ -11,19 +11,18 @@ with open(FILE_NAME, "r", encoding="ASCII", errors="ignore") as file:
 
 # TODO: fill this with classes you want to check for conflicts
 # Doesn't need to have the full name (I hope)
-WANTED = ("Alin", "DDP 2", "POK", "Kalkulus 2", "MPK Terintegrasi", "MD 2")
+WANTED = ("BasDat", "StatProb", "SDA", "Alin", "Sistem Operasi", "PBP")
 
 # TODO: fill this to ensure classes you took has no conflict
 # This can also be empty if you are not sure which classes to take
 # Right side should be "-" if it is the only class available
 # Must be a subset of WANTED
 TAKEN_CLASSES_DICT = {
-    "MPK Terintegrasi": "F",
-    "Alin": "B",
-    "POK": "B",
-    "DDP 2": "B",
-    "Kalkulus 2": "B",
-    "MD 2": "A",
+    "PBP": "C",
+    "SDA": "E",
+    "Alin": "A",
+    "StatProb": "B",
+    "Sistem Operasi": "C",
 }
 
 
