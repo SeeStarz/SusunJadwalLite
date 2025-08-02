@@ -48,6 +48,9 @@ class Schedule:
     def __repr__(self) -> str:
         return f"Schedule({self.day}, {str(self.start_hour).zfill(2)}, {str(self.start_minute).zfill(2)}, {str(self.end_hour).zfill(2)}, {str(self.end_minute).zfill(2)})"
 
+    def pretty(self) -> str:
+        return f"{self.day}, {str(self.start_hour).zfill(2)}:{str(self.start_minute).zfill(2)} - {str(self.end_hour).zfill(2)}:{str(self.end_minute).zfill(2)}"
+
     def is_conflict(self, other: Self) -> bool:
         if self.day != other.day:
             return False
@@ -160,10 +163,6 @@ def main():
             print(
                 f"Conflict: {class1.category} {class1.identifier} with {class2.category} {class2.identifier}"
             )
-            # print(
-            #     f"At schedule: {class1.schedule[conflict[0]]} with {class2.schedule[conflict[1]]}"
-            # )
-            # print()
 
     print()
 
@@ -211,6 +210,8 @@ def main():
                 )
 
     if all_good:
+        for taken_class in taken_classes:
+            print(taken_class, " | ".join(map(Schedule.pretty, taken_class.schedule)))
         print("All good :>")
 
 
